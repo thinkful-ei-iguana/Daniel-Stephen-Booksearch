@@ -32,8 +32,8 @@ class App extends React.Component {
       });
   }
 
-  componentDidMount() {
-    this.searchBooks('bob');
+  handleSearchBooks = (value) => {
+    this.searchBooks(value)
   }
 
   render() {
@@ -43,7 +43,9 @@ class App extends React.Component {
           <h1>Google Book Search</h1>
         </header>
           <main>
-            <Search />
+            <Search
+              handleSearchBooks={this.handleSearchBooks}  
+            />
             <FilterBar 
               handleBookType={this.handleBookType}
               handlePrintFilter={this.handlePrintFilter}
