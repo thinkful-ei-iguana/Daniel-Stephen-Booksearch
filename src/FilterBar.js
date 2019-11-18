@@ -5,9 +5,13 @@ export default function FilterBar(props) {
     <div className="filter-bar">
       <form action="#" name="filter">
 
-        <label for="print-filter">Print Type:</label>
-        <select id="print-filter">
-          <option value="null" selected>All</option>
+        <label htmlFor="print-filter">Print Type:</label>
+        <select 
+          id="print-filter" 
+          onChange={(e) => props.handlePrintFilter(e.target.value)}
+          defaultValue={null}
+        >
+          <option value="null">All</option>
           <option value="ebooks">eBooks</option>
           <option value="free-ebooks">Free eBooks</option>
           <option value="paid-ebooks">Paid eBooks</option>
@@ -15,9 +19,13 @@ export default function FilterBar(props) {
           <option value="partial">Partial</option>
         </select> 
 
-        <label for="book-type">Book Type:</label>
-        <select id="book-type">
-          <option value="all" selected>No Filter</option>
+        <label htmlFor="book-type">Book Type:</label>
+        <select 
+          id="book-type" 
+          onChange={ (e) => props.handleBookType(e.target.value)}
+          defaultValue="all"
+        >
+          <option value="all">No Filter</option>
           <option value="books">Books</option>
           <option value="magazines">Magazines</option>
         </select>

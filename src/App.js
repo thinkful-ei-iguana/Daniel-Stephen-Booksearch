@@ -7,6 +7,7 @@ class App extends React.Component {
   state = {
     "print filter": null,
     "book type": "all",
+    books: []
   }
 
   handlePrintFilter = (value) => {
@@ -16,6 +17,25 @@ class App extends React.Component {
   handleBookType = (value) => {
     this.setState({ "book type": value })
   }
+
+  searchBooks = (terms) => {
+    const url = `https://www.googleapis.com/books/v1/volumes?q=${terms}`;
+    const body = {};
+
+    fetch(url, body)
+      .then(res => res.json())
+      .then( data => {
+        const books = data.items.map(item => {
+          return item.volumeInfo;
+        })
+        this.setState({books})
+      });
+  }
+
+  componentDidMount() {
+    this.searchBooks('bob');
+  }
+
   render() {
     return (
       <div className="App">
@@ -24,7 +44,10 @@ class App extends React.Component {
         </header>
           <main>
             <Search />
-            <FilterBar />
+            <FilterBar 
+              handleBookType={this.handleBookType}
+              handlePrintFilter={this.handlePrintFilter}
+            />
           </main>  
       </div>
   );
