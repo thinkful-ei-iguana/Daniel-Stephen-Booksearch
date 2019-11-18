@@ -5,6 +5,7 @@ import FilterBar from './FilterBar';
 
 class App extends React.Component {
   state = {
+    "search term": "",
     "print filter": null,
     "book type": "all",
     books: []
@@ -32,8 +33,13 @@ class App extends React.Component {
       });
   }
 
-  handleSearchBooks = (value) => {
-    this.searchBooks(value)
+  handleSearchBooks = (e) => {
+    e.preventDefault();
+    const searchTerm = e.target.value;
+    console.log(e);
+    e.target.value = '';
+    this.setState({"search term": searchTerm})
+    this.searchBooks(searchTerm);
   }
 
   render() {

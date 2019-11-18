@@ -4,10 +4,7 @@ export default function Search(props) {
   return (
     <form
       action="submit"
-      onSubmit={(e) => {
-        e.preventDefault()
-        props.handleSearchBooks(e.target.value)
-        }}
+      onSubmit={(e) => props.handleSearchBooks(e)}
     >
       <label htmlFor="book-search" className="search-label">Search:</label>
       <input 
