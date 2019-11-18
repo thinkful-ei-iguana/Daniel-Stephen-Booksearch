@@ -12,34 +12,45 @@ class App extends React.Component {
   }
 
   handlePrintFilter = (value) => {
-    this.setState({ "print filter": value })
+    this.setState({ "print filter": value }, () => this.searchBooks())
   }
 
   handleBookType = (value) => {
-    this.setState({ "book type": value })
+    this.setState({ "book type": value }, () => this.searchBooks())
   }
 
-  searchBooks = (terms) => {
-    const url = `https://www.googleapis.com/books/v1/volumes?q=${terms}`;
+  searchBooks = () => {
+    console.log("search ran", this.state["print filter"]);
+    let filter = '';
+    if (this.state["print filter"]) {
+      filter = `&filter=${this.state["print filter"]}`
+    }
+    const printType = `&printType=${this.state["book type"]}`;
+    const terms = this.state["search term"]
+
+    const url = `https://www.googleapis.com/books/v1/volumes?q=${terms}${filter}${printType}`;
     const body = {};
 
     fetch(url, body)
       .then(res => res.json())
       .then( data => {
-        const books = data.items.map(item => {
+        let books;
+        if (data.items) {
+          books = data.items.map(item => {
           return item.volumeInfo;
-        })
+        })}
         this.setState({books})
       });
   }
 
   handleSearchBooks = (e) => {
-    e.preventDefault();
-    const searchTerm = e.target.value;
-    console.log(e);
-    e.target.value = '';
-    this.setState({"search term": searchTerm})
+    e.preventDefault()
+    const searchTerm = this.state["search term"];
     this.searchBooks(searchTerm);
+  }
+
+  setSearchTerm = (val) => {
+    this.setState({"search term": val});
   }
 
   render() {
@@ -51,6 +62,8 @@ class App extends React.Component {
           <main>
             <Search
               handleSearchBooks={this.handleSearchBooks}  
+              setSearchTerm={this.setSearchTerm}
+              searchTerm={this.state["search term"]}
             />
             <FilterBar 
               handleBookType={this.handleBookType}

@@ -8,10 +8,12 @@ export default function Search(props) {
     >
       <label htmlFor="book-search" className="search-label">Search:</label>
       <input 
+        value={props.searchTerm}
         type="text" 
         id="book-search" 
         className="search-input" 
         placeholder="henry"
+        onChange={(e) => props.setSearchTerm(e.target.value)}
       />
       <button className="submit-button">Search</button>
     </form>
