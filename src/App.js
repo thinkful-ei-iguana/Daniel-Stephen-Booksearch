@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.css';
 import Search from './Search';
+import FilterBar from './FilterBar';
 
 function App() {
   return (
@@ -10,6 +11,7 @@ function App() {
       </header>
         <main>
           <Search />
+          <FilterBar />
         </main>  
     </div>
   );
