@@ -2,6 +2,7 @@ import React from 'react';
 import './App.css';
 import Search from './Search';
 import FilterBar from './FilterBar';
+import ResultsList from './ResultsList';
 
 class App extends React.Component {
   state = {
@@ -68,6 +69,9 @@ class App extends React.Component {
             <FilterBar 
               handleBookType={this.handleBookType}
               handlePrintFilter={this.handlePrintFilter}
+            />
+            <ResultsList
+              books={this.state.books}
             />
           </main>  
       </div>
